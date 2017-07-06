@@ -8,6 +8,7 @@ if ( file_exists( './inc/.zahra' ) ) {
 	header( "Location: ./login" );
 }
 
+require './inc/config.php';
 require './inc/jabali.php';
 connectDb();
 
@@ -24,12 +25,14 @@ if (isset($_POST['register']) ) {
     $h_avatar = hIMAGES.'avatar.svg';
     $h_organization = "hq";
     $h_code = $h_author;
-    $h_created = date('Y-md-' );
+    $h_created = date('Y-m-d' );
+    $h_gender = "other";
     $h_key = $hash;
     $h_level = "admin";
+    $h_link = "";
     $h_location = "nairobi";
     $h_notes = "Account created on ".$h_created;
-    $h_password = md5($_POST['h_password'] );
+    $h_password = md5( $_POST['h_password'] );
     $h_social = '{"facebook":"https://www.facebook.com/","twitter":"https://twitter.com/","instagram":"https://instagram.com/","github":"https://github.com/"}';
     $h_status = "active";
     $h_style = "zahra";
@@ -143,15 +146,8 @@ if (isset($_POST['register']) ) {
 	//Users Menu
 	$hMenu -> create ( 'Users', 'jabali', 'group', 'users', '', '#', 'drawer', 'visible', 'drop' );
 		//Users SubMenus
-		$hMenu -> create ( 'All Users', 'jabali', 'supervisor_account', 'allusers', 'users', './user?view=list', 'drawer', 'visible', 'null' );
-		$hMenu -> create ( 'Pending Users', 'jabali', 'done', 'draftusers', 'users', './user?view=pending', 'drawer', 'visible', 'null' );
-
-	//Extensions
-	$hMenu -> create ( 'Extensions', 'jabali', 'power', 'extensions', '', '#', 'drawer', 'visible', 'drop' );
-		//Extensions SubMenus
-		$hMenu -> create ( 'Installed Extensions', 'jabali', 'link', 'installedx', 'extensions', './extensions?view=installed', 'drawer', 'visible', 'null' );
-		$hMenu -> create ( 'Active Extensions', 'jabali', 'schedule', 'activex', 'extensions', './extensions?view=active', 'drawer', 'visible', 'null' );
-		$hMenu -> create ( 'Add Extensions', 'jabali', 'file_download', 'newx', 'extensions', './extensions?add=new', 'drawer', 'visible', 'null' );
+		$hMenu -> create ( 'All Users', 'jabali', 'supervisor_account', 'allusers', 'users', './user?view=list&key=users', 'drawer', 'visible', 'null' );
+		$hMenu -> create ( 'Pending Users', 'jabali', 'done', 'draftusers', 'users', './user?view=pending&key=users', 'drawer', 'visible', 'null' );
 
 	//Messages Menu
 	$hMenu -> create ( 'Comments', 'jabali', 'comment', 'comment', '', '#', 'drawer', 'visible', 'drop' );
@@ -164,7 +160,7 @@ if (isset($_POST['register']) ) {
 	*Create Admin Account
 	*/
     if ( mysqli_query( $GLOBALS['conn'], "INSERT INTO husers (h_alias, h_author, h_avatar, h_organization, h_code, h_created, h_email, h_gender, h_key, h_level, h_link, h_location, h_notes, h_password, h_social, h_status, h_style, h_type, h_username) 
-    VALUES ('".$h_alias."', '".$h_author."', '".$h_avatar."', '".$h_organization."', '".$h_code."', '".$h_created."', '".$h_email."', '".$h_gender."', '".$h_key."', '".$h_level."', '".$h_link."', '".$h_location."', '".$h_notes."', '".$h_password."', '".$h_social."', ".$h_status."', '".$h_style."', '".$h_type."', '".$h_username."' )" ) ) {
+    VALUES ('".$h_alias."', '".$h_author."', '".$h_avatar."', '".$h_organization."', '".$h_code."', '".$h_created."', '".$h_email."', '".$h_gender."', '".$h_key."', '".$h_level."', '".$h_link."', '".$h_location."', '".$h_notes."', '".$h_password."', '".$h_social."', '".$h_status."', '".$h_style."', '".$h_type."', '".$h_username."' )" ) ) {
 
     	/*
 		* Add Zahra file to prevent hacks
@@ -231,7 +227,7 @@ if (isset($_GET['module']) ) { ?>
 
 			          <div class="input-field mdl-cell mdl-cell--11-col">
 			          <i class="material-icons prefix">lock</i>
-			          <input name="password" id="password" type="password">
+			          <input name="h_password" id="password" type="password">
 			          <label for="password">Password</label>
 			          </div>
 			          <div class="input-field mdl-cell mdl-cell--1-col">

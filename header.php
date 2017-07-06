@@ -127,7 +127,8 @@ if ( file_exists('./inc/config.php' ) ) {
     <!-- Bottom row, not visible on scroll -->
     <div class="mdl-layout__header-row" style="overflow-x: auto;">
       <div class="mdl-layout-spacer"></div>
-        <?php _hMenus::header(); ?>
+        <?php $header = new _hMenus();
+        $header -> header(); ?>
     </div>
   </header>
   <main class="mdl-layout__content mdl-color-text--white">

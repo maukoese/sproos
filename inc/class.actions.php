@@ -8,7 +8,6 @@ class _hActions {
 	* 
 	**/
 	function connectDB() {
-		include 'inc/config.php';
 		$conn = mysqli_connect( hDBHOST, hDBUSER, hDBPASS, hDBNAME );
 
 		if ( mysqli_connect_errno() ) {
@@ -67,7 +66,6 @@ class _hActions {
 	}
 
 	function login() {
-		session_start();
 		if ( isset( $_SESSION['myCode'] ) ) {
 			header( 'Location: admin/index?page=my dashboard' );
 			exit();

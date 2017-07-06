@@ -93,7 +93,7 @@ $dB = new MysqliDb ($GLOBALS['conn']); ?>
           <span class="mdl-layout-title"><?php 
           if ( isset( $_GET['type'] ) ) {
             echo ucwords( $_GET['type'].'s ' );
-          } elseif ( isset( $_GET['view'] ) && $_GET['key'] !== "" ) {
+          } elseif ( isset( $_GET['view'] ) ) {
             if ( $_GET['view'] == "list" ) {
               echo ucwords( $_GET['key']." List" );
             } else {
@@ -248,8 +248,7 @@ $dB = new MysqliDb ($GLOBALS['conn']); ?>
           $hMenu -> drawerdef( 'articles' );
           $hMenu -> drawerdef( 'pages' );
           $hMenu -> drawerdef( 'users' );
-          $hMenu -> drawerdef( 'extensions' );
-          $hMenu -> drawerdef( 'messages' );
+          $hMenu -> drawerdef( 'comments' );
           /*
           * User Defined Menus
           */
